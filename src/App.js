@@ -4,10 +4,10 @@ import React, {useState} from 'react';
 function App() {
   
   const [toDos, setToDos] = useState([
-    {name: 'Book appointment', priority: 'high'},
-    {name: 'Buy groceries', priority: 'high'},
-    {name: 'Cook dinner', priority: 'high'},
-    {name: 'Meditate', priority: 'low'}
+    {name: 'Book appointment', priority: 'High Priority'},
+    {name: 'Buy groceries', priority: 'High Priority'},
+    {name: 'Cook dinner', priority: 'High Priority'},
+    {name: 'Meditate', priority: 'Low Priority'}
   ]);
 
   const [newToDo, setNewToDo] = useState('');
@@ -21,7 +21,6 @@ function App() {
     setNewPriority(event.target.value)
   }
 
-
   const saveNewToDo = (event) => {
     event.preventDefault();
     const copyToDos = [...toDos];
@@ -32,8 +31,8 @@ function App() {
 
   const itemNodes = toDos.map( (toDo, index) => {
     return (
-      <li key={index}>
-        <span>{toDo.name}, {toDo.priority}</span>
+      <li key={index} class = {toDo.priority == 'High Priority' ? 'high-priority' : 'low-priority'}>
+        <span>{toDo.name} : {toDo.priority}</span>
       </li>
     )
   })
@@ -44,20 +43,28 @@ function App() {
 
     <>
       <h1>To Do List</h1>
-      <hr></hr>
+      <br></br>
 
       <ul>
         {itemNodes}
       </ul>
 
+      <br></br>
+
       <form onSubmit={saveNewToDo}>
         <label htmlFor='new-toDo'>Add New To Do:</label>
         <input id='new-toDo' type='text' value={newToDo} onChange={handleToDoInput}/>
+        <br></br>
+        <br></br>
         <label htmlFor='high'>High</label>
-        <input id='high' name='prority' type='radio' value='high' onChange = {handlePriority}></input> 
+        <input id='high' name='prority' type='radio' value='High Priority' onChange = {handlePriority}></input> 
+        <br></br>
+        <br></br>
         <label htmlFor='low'>Low</label>
-        <input id='low' name='prority' type='radio' value='low' onChange = {handlePriority}></input> 
-        <input type='submit' value='Save New To Do'/>
+        <input id='low' name='prority' type='radio' value='Low Priority' onChange = {handlePriority}></input> 
+        <br></br>
+        <br></br>
+        <input id = 'save' type='submit' value='Save New To Do'/>
       </form>
     </>
   );
